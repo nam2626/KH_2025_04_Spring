@@ -2,6 +2,7 @@ package com.kh.spring_di.main;
 
 import com.kh.spring_di.context.AppContext;
 import com.kh.spring_di.vo.Greeting;
+import com.kh.spring_di.vo.Person;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class TestMain {
@@ -19,5 +20,13 @@ public class TestMain {
         Greeting g4 = ctx.getBean("greeter", Greeting.class);
         System.out.println(g4);
         System.out.println("g1 == g2 ? " + (g1 == g2));
+
+        Person p1 = ctx.getBean("person", Person.class);
+        Person p2 = ctx.getBean("person", Person.class);
+        Person p3 = ctx.getBean("person", Person.class);
+        System.out.println(p1);
+        System.out.println(p2);
+        System.out.println(p3);
+        System.out.println("p1 == p2 ? " + (p1 == p2));
     }
 }
