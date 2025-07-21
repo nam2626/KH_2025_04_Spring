@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppContext {
 
+    // @Bean 어노테이션이 붙은 메서드는 Spring 컨테이너에 의해 관리되는 외부 객체를 생성해서 관리합니다.
     @Bean
     public Greeting greeter(){
         System.out.println("greeter 메서드 호출");
