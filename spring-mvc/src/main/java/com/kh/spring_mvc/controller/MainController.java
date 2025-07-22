@@ -1,6 +1,7 @@
 package com.kh.spring_mvc.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +29,8 @@ public class MainController {
     public String login(HttpServletRequest request){
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
+        HttpSession session = request.getSession();
+        session.setAttribute("msg", "<b>로그인 성공</b>");
         System.out.println(username + " : " + password);
         return "main";
     }

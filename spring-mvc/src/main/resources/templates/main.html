@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 결과 페이지</title>
+</head>
+<body>
+    <!--EL로 쓰던 sessionScope가 SpringEL에서는 session-->
+    <!--  text는 문자열로 출력   -->
+    세션에 저장된 값 : <span th:text="${session.msg}"></span><br>
+    세션에 저장된 값 : <span>[[${session.msg}]]</span><br>
+    <!--  utext는 문자열에 html 태그가 있으면 태그를 적용해서 출력   -->
+    세션에 저장된 값 : <span th:utext="${session.msg}"></span><br>
+    세션에 저장된 값 : <span>[(${session.msg})]</span><br>
+
+</body>
+</html>
