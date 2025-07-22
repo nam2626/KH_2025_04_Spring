@@ -15,4 +15,10 @@ public class MainController {
         System.out.println("index 페이지 요청됨");
         return "index";
     }
+
+    @GetMapping("/member/login/view")
+    public String loginView() {
+        System.out.println("로그인 페이지 요청됨");
+        return "login";// forward 방식으로 이동
+    }
 }
