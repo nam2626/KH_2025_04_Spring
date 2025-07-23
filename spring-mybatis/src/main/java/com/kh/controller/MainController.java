@@ -24,6 +24,7 @@ public class MainController {
     public ModelAndView main(ModelAndView view) {
         //학생 정보 목록 받음
         List<StudentDTO> studentList = studentService.selectAllStudent();
+        System.out.println(studentList);
         view.addObject("studentList", studentList);
         view.setViewName("main");
         return view;

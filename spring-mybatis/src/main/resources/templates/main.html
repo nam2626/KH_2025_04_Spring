@@ -22,7 +22,17 @@
                 </tr>
             </thead>
             <tbody>
-
+                <tr th:each="student : ${studentList}">
+                    <td th:text="${student.sno}"></td>
+                    <td th:text="${student.sname}"></td>
+                    <td th:text="${student.mno}"></td>
+                    <td th:text="${student.score}"></td>
+                    <td th:text="${student.gender}"></td>
+                    <td>
+                        <a>삭제</a>
+                        <a>수정</a>
+                    </td>
+                </tr>
             </tbody>
         </table>
         <table>
