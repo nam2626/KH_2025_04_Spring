@@ -9,7 +9,7 @@
         // 데이터는 형식 : list : [회원 정보...], msg : "성공 메시지"
         // 출력은 result 클래스에 출력
       window.onload = function() {
-        document.querySelector('.btn_ajax').onclick = () => {
+        document.querySelector('.btn_ajax1').onclick = () => {
           fetch('/member/list/ajax1')
             .then(response => response.json())
             .then(data => {
@@ -24,13 +24,29 @@
                     resultDiv.appendChild(memberInfo);
                 });
             });
+            }
+          document.querySelector('.btn_ajax2').onclick = () => {
+          fetch('/member/list/ajax2')
+            .then(response => response.json())
+            .then(data => {
+              console.log(data);
+                let resultDiv = document.querySelector('.result');
+                resultDiv.innerHTML = ''; // 기존 내용 초기화
 
+                resultDiv.innerHTML = `<h2>${data.msg}</h2>`;
+                data.list.forEach(member => {
+                    let memberInfo = document.createElement('p');
+                    memberInfo.textContent = `${member.id} / ${member.password} / ${member.name} / ${member.age}`;
+                    resultDiv.appendChild(memberInfo);
+                });
+            });
         }
       }
     </script>
 </head>
 <body>
-  <button class="btn_ajax">ajax 호출</button>
+  <button class="btn_ajax1">ajax 호출 - 1</button>
+  <button class="btn_ajax2">ajax 호출 -  2</button>
   <hr>
   <div class="result"></div>
 </body>
