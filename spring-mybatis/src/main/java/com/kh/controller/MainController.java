@@ -1,5 +1,6 @@
 package com.kh.controller;
 
+import com.kh.dto.MajorDTO;
 import com.kh.dto.StudentDTO;
 import com.kh.service.MajorService;
 import com.kh.service.StudentService;
@@ -25,7 +26,9 @@ public class MainController {
         //학생 정보 목록 받음
         List<StudentDTO> studentList = studentService.selectAllStudent();
         System.out.println(studentList);
+        List<MajorDTO> majorList = majorService.selectAllMajor();
         view.addObject("studentList", studentList);
+        view.addObject("majorList", majorList);
         view.setViewName("main");
         return view;
     }

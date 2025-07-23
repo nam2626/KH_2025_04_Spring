@@ -36,7 +36,24 @@
             </tbody>
         </table>
         <table>
-
+            <caption><h3>학과 관리</h3></caption>
+            <thead>
+                <tr>
+                    <th>학과번호</th>
+                    <th>학과명</th>
+                    <th>비고</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="major : ${majorList}">
+                    <td th:text="${major.mno}"></td>
+                    <td th:text="${major.mname}"></td>
+                    <td>
+                        <a>삭제</a>
+                        <a>수정</a>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </body>
