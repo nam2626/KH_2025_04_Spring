@@ -41,12 +41,29 @@
                 });
             });
         }
+        document.querySelector('.btn_ajax3').onclick = () => {
+          fetch('/member/list/ajax3')
+            .then(response => response.json())
+            .then(data => {
+              console.log(data);
+                let resultDiv = document.querySelector('.result');
+                resultDiv.innerHTML = ''; // 기존 내용 초기화
+
+                resultDiv.innerHTML = `<h2>${data.msg}</h2>`;
+                data.list.forEach(member => {
+                    let memberInfo = document.createElement('p');
+                    memberInfo.textContent = `${member.id} / ${member.password} / ${member.name} / ${member.age}`;
+                    resultDiv.appendChild(memberInfo);
+                });
+            });
+        }
       }
     </script>
 </head>
 <body>
   <button class="btn_ajax1">ajax 호출 - 1</button>
-  <button class="btn_ajax2">ajax 호출 -  2</button>
+  <button class="btn_ajax2">ajax 호출 - 2</button>
+  <button class="btn_ajax3">ajax 호출 - 3</button>
   <hr>
   <div class="result"></div>
 </body>
