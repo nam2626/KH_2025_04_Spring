@@ -75,11 +75,29 @@
         document.querySelectorAll('.btn_delete')
               .forEach(item => item.onclick = deleteMajor);
     }
+    const updateMajor = async function() {
+      const mno = this.closest('tr').children[0].innerText;
+      const mname = this.closest('tr').querySelector('input').value;
+      console.log(mno,mname);
+      const data = {
+        mno : mno,
+        mname : mname
+      };
+      const response = await fetch('/major',{
+        method : 'PATCH',
+        header : {
+          'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify(data)
+      });
+      const json = await response.json();
+      console.log(json);
+    }
     window.onload = () =>{
       document.querySelectorAll('.btn_delete')
               .forEach(item => item.onclick = deleteMajor);
-
-
+      document.querySelectorAll('.btn_update')
+              .forEach(item => item.onclick = updateMajor);
     }
 
   </script>
