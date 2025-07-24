@@ -6,8 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Collections;
-
 @Controller
 @RequestMapping("/student")
 public class StudentController {
@@ -42,6 +40,13 @@ public class StudentController {
     public String updateStudent(StudentDTO student){
         int result = studentService.updateStudent(student);
         System.out.println("수정 결과 : " + result);
+        return "redirect:/";
+    }
+
+    @PostMapping("/insert")
+    public String insertStudent(StudentDTO student){
+        int result = studentService.insertStudent(student);
+        System.out.println("추가 결과 : " + result);
         return "redirect:/";
     }
 }

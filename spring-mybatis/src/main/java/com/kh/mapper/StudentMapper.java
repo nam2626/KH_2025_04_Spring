@@ -11,4 +11,5 @@ public interface StudentMapper {
     int deleteStudent(String sno);
     StudentDTO selectStudentBySno(String sno);
     int updateStudent(StudentDTO student);
+    int insertStudent(StudentDTO student);
 }

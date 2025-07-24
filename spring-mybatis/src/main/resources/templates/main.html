@@ -1,135 +1,135 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        .container {
-            width: 80%;
-            margin: 0 auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        caption {
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-        a {
-            margin-right: 10px;
-            text-decoration: none;
-            color: blue;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        h2 {
-            text-align: center;
-            margin-top: 20px;
-        }
-        h3 {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        article {
-            display: flex;
-            flex-flow: row nowrap;
-            align-items: flex-start;
-        }
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .container {
+        width: 80%;
+        margin: 0 auto;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    caption {
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+    a {
+        margin-right: 10px;
+        text-decoration: none;
+        color: blue;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    h2 {
+        text-align: center;
+        margin-top: 20px;
+    }
+    h3 {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    article {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: flex-start;
+    }
 
 
-    </style>
+  </style>
 </head>
 <body>
-    <div class="container">
-    <h2>학생 정보 관리 페이지</h2>
-        <article>
+<div class="container">
+  <h2>학생 정보 관리 페이지</h2>
+  <article>
 
 
-        <table>
-            <caption>
-                <h3>학생 정보</h3>
-            </caption>
-            <thead>
-                <tr>
-                    <td colspan="6">
-                        <form action="/student/insert" method="post">
-                            <!--학생정보 추가하는 폼-->
-                            <input type="text" name="sno" placeholder="학번 입력하세요">
-                            <input type="text" name="sname" placeholder="이름 입력하세요">
-                            <select name="gender">
-                                <option value="M">남</option>
-                                <option value="F">여</option>
-                            </select>
-                            <select name="mno">
-                                <option th:each="major : ${majorMap}" th:value="${major.key}" th:text="${major.value}">                                </option>
-                            </select>
-                            <input type="text" name="score" placeholder="평점입력하세요">
-                            <button>추가</button>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <th>학번</th>
-                    <th>이름</th>
-                    <th>학과명</th>
-                    <th>평점</th>
-                    <th>성별</th>
-                    <th>비고</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="student : ${studentList}">
-                    <td th:text="${student.sno}"></td>
-                    <td th:text="${student.sname}"></td>
-                    <td>
-                        <!--학과번호를 이용해서 학과명으로 변환 - (if, forEach)-->
-                        <!-- block은 타임리프에서 제공하는 태그, 렌더링시 제거된다. -->
-<!--                        <th:block th:each="major : ${majorList}"-->
-<!--                              th:if="${major.mno == student.mno}" th:text="${major.mname}"></th:block>-->
-                        <th:block th:text="${majorMap.get(student.mno)}"></th:block>
-                    </td>
-                    <td th:text="${student.score}"></td>
-                    <td th:text="${student.gender}"></td>
-                    <td>
-                        <a th:href="@{/student/delete/{sno}(sno=${student.sno})}">삭제</a>
-                        <a th:href="@{/student/update/view(sno=${student.sno})}">수정</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <table>
-            <caption><h3>학과 관리</h3></caption>
-            <thead>
-                <tr>
-                    <th>학과번호</th>
-                    <th>학과명</th>
-                    <th>비고</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- 맵에 들어간 데이터 한건씩 출력-->
-                <tr th:each="major : ${majorMap}">
-                    <td th:text="${major.key}"></td>
-                    <td th:text="${major.value}"></td>
-                    <td>
-                        <a>삭제</a>
-                        <a>수정</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        </article>
-    </div>
+    <table>
+      <caption>
+        <h3>학생 정보</h3>
+      </caption>
+      <thead>
+      <tr>
+        <td colspan="6">
+          <form action="/student/insert" method="post">
+            <!--학생정보 추가하는 폼-->
+            <input type="text" name="sno" placeholder="학번 입력하세요">
+            <input type="text" name="sname" placeholder="이름 입력하세요">
+            <select name="gender">
+              <option value="M">남</option>
+              <option value="F">여</option>
+            </select>
+            <select name="mno">
+              <option th:each="major : ${majorMap}" th:value="${major.key}" th:text="${major.value}"></option>
+            </select>
+            <input type="text" name="score" placeholder="평점입력하세요">
+            <button>추가</button>
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <th>학번</th>
+        <th>이름</th>
+        <th>학과명</th>
+        <th>평점</th>
+        <th>성별</th>
+        <th>비고</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="student : ${studentList}">
+        <td th:text="${student.sno}"></td>
+        <td th:text="${student.sname}"></td>
+        <td>
+          <!--학과번호를 이용해서 학과명으로 변환 - (if, forEach)-->
+          <!-- block은 타임리프에서 제공하는 태그, 렌더링시 제거된다. -->
+          <!--                        <th:block th:each="major : ${majorList}"-->
+          <!--                              th:if="${major.mno == student.mno}" th:text="${major.mname}"></th:block>-->
+          <th:block th:text="${majorMap.get(student.mno)}"></th:block>
+        </td>
+        <td th:text="${student.score}"></td>
+        <td th:text="${student.gender}"></td>
+        <td>
+          <a th:href="@{/student/delete/{sno}(sno=${student.sno})}">삭제</a>
+          <a th:href="@{/student/update/view(sno=${student.sno})}">수정</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <table>
+      <caption><h3>학과 관리</h3></caption>
+      <thead>
+      <tr>
+        <th>학과번호</th>
+        <th>학과명</th>
+        <th>비고</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- 맵에 들어간 데이터 한건씩 출력-->
+      <tr th:each="major : ${majorMap}">
+        <td th:text="${major.key}"></td>
+        <td th:text="${major.value}"></td>
+        <td>
+          <a>삭제</a>
+          <a>수정</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </article>
+</div>
 </body>
 </html>
