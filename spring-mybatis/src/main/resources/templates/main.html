@@ -74,12 +74,17 @@
                 <tr th:each="student : ${studentList}">
                     <td th:text="${student.sno}"></td>
                     <td th:text="${student.sname}"></td>
-                    <td th:text="${student.mno}"></td>
+                    <td>
+                        <!--학과번호를 이용해서 학과명으로 변환 - (if, forEach)-->
+                        <!-- block은 타임리프에서 제공하는 태그, 렌더링시 제거된다. -->
+                        <th:block th:each="major : ${majorList}"
+                              th:if="${major.mno == student.mno}" th:text="${major.mname}"></th:block>
+                    </td>
                     <td th:text="${student.score}"></td>
                     <td th:text="${student.gender}"></td>
                     <td>
-                        <a>삭제</a>
-                        <a>수정</a>
+                        <a th:href="@{/student/delete/{sno}(sno=${student.sno})}">삭제</a>
+                        <a th:href="@{/student/update/view(sno=${student.sno})}">수정</a>
                     </td>
                 </tr>
             </tbody>
