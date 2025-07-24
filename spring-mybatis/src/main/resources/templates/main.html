@@ -85,7 +85,7 @@
       };
       const response = await fetch('/major',{
         method : 'PATCH',
-        header : {
+        headers : {
           'Content-Type' : 'application/json'
         },
         body : JSON.stringify(data)

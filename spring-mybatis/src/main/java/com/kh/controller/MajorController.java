@@ -3,10 +3,7 @@ package com.kh.controller;
 import com.kh.dto.MajorDTO;
 import com.kh.service.MajorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -35,9 +32,20 @@ public class MajorController {
     return map;
   }
 
-  //추가
-
   //수정
+  @PatchMapping
+  public Map<String, Object> updateMajor(@RequestBody Map<String, Object> body){
+    Map<String, Object> map = new HashMap<>();
+    System.out.println(body);
+    //학과 정보 수정
+
+    //전체 학과정보 조회해서 map에 넣어서 전달
+    List<MajorDTO> majorList = majorService.selectAllMajor();
+    map.put("majorList", majorList);
+    return map;
+  }
+
+  //추가
 
   //조회
 
