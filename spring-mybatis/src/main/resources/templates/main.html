@@ -49,6 +49,26 @@
 
 
   </style>
+  <script>
+    const deleteMajor = async function(){
+       console.log(this.closest('tr').children[0]);
+       const mno = this.closest('tr').children[0].innerText;
+
+       const response = await fetch(`/major/${mno}`,{
+        method : 'DELETE'
+       });
+       const data = await response.json();
+       console.log(data);
+       alert(data.msg);
+    }
+    window.onload = () =>{
+      document.querySelectorAll('.btn_delete')
+              .forEach(item => item.onclick = deleteMajor);
+
+
+    }
+
+  </script>
 </head>
 <body>
 <div class="container">

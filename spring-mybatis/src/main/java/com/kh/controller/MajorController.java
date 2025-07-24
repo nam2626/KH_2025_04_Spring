@@ -13,11 +13,11 @@ import java.util.Map;
 public class MajorController {
 
   //삭제
-  @DeleteMapping("/major/{mno}")
+  @DeleteMapping("/{mno}")
   public Map<String, Object> deleteMajor(@PathVariable String mno){
     System.out.println("삭제할 학과번호 : " + mno);
     Map<String, Object> map = new HashMap<>();
-
+    map.put("msg","삭제 호출 성공");
     return map;
   }
 
