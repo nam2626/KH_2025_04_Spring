@@ -60,6 +60,20 @@
        const data = await response.json();
        console.log(data);
        alert(data.msg);
+       let tag = data.majorList.reduce((prev, cur) => `${prev}
+       <tr>
+        <td>${cur.mno}</td>
+        <td>
+          <input type='text' value='${cur.mname}'>
+        </td>
+        <td>
+          <button class='btn_delete'>삭제</button>
+          <button class='btn_update'>수정</button>
+         </td>
+       </tr>`,'');
+       document.querySelector('.major_area').innerHTML = tag;
+        document.querySelectorAll('.btn_delete')
+              .forEach(item => item.onclick = deleteMajor);
     }
     window.onload = () =>{
       document.querySelectorAll('.btn_delete')
@@ -137,7 +151,7 @@
         <th>비고</th>
       </tr>
       </thead>
-      <tbody>
+      <tbody class="major_area">
       <!-- 맵에 들어간 데이터 한건씩 출력-->
       <tr th:each="major : ${majorMap}">
         <td th:text="${major.key}"></td>
