@@ -121,10 +121,10 @@
       <!-- 맵에 들어간 데이터 한건씩 출력-->
       <tr th:each="major : ${majorMap}">
         <td th:text="${major.key}"></td>
-        <td th:text="${major.value}"></td>
+        <td><input type="text" th:value="${major.value}"></td>
         <td>
-          <a>삭제</a>
-          <a>수정</a>
+          <button class="btn_delete">삭제</button>
+          <button class="btn_update">수정</button>
         </td>
       </tr>
       </tbody>
