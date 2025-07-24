@@ -25,4 +25,8 @@ public class StudentService {
     public StudentDTO selectStudentBySno(String sno) {
         return studentMapper.selectStudentBySno(sno);
     }
+
+    public int updateStudent(StudentDTO student) {
+        return studentMapper.updateStudent(student);
+    }
 }

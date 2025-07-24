@@ -12,4 +12,8 @@
     <select id="selectStudentBySno" resultType="student">
         select * from student where sno = #{sno}
     </select>
+    <update id="updateStudent">
+        update student set sname = #{sname}, score = #{score}, mno = #{mno},
+            gender = #{gender} where sno = #{sno}
+    </update>
 </mapper>

@@ -3,11 +3,10 @@ package com.kh.controller;
 import com.kh.dto.StudentDTO;
 import com.kh.service.StudentService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Collections;
 
 @Controller
 @RequestMapping("/student")
@@ -37,5 +36,12 @@ public class StudentController {
         view.addObject("student", dto);
         view.setViewName("student_update_view");
         return view;
+    }
+
+    @PostMapping("/update")
+    public String updateStudent(StudentDTO student){
+        int result = studentService.updateStudent(student);
+        System.out.println("수정 결과 : " + result);
+        return "redirect:/";
     }
 }
