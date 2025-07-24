@@ -77,8 +77,9 @@
                     <td>
                         <!--학과번호를 이용해서 학과명으로 변환 - (if, forEach)-->
                         <!-- block은 타임리프에서 제공하는 태그, 렌더링시 제거된다. -->
-                        <th:block th:each="major : ${majorList}"
-                              th:if="${major.mno == student.mno}" th:text="${major.mname}"></th:block>
+<!--                        <th:block th:each="major : ${majorList}"-->
+<!--                              th:if="${major.mno == student.mno}" th:text="${major.mname}"></th:block>-->
+                        <th:block th:text="${majorMap.get(student.mno)}"></th:block>
                     </td>
                     <td th:text="${student.score}"></td>
                     <td th:text="${student.gender}"></td>
@@ -99,9 +100,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="major : ${majorList}">
-                    <td th:text="${major.mno}"></td>
-                    <td th:text="${major.mname}"></td>
+                <!-- 맵에 들어간 데이터 한건씩 출력-->
+                <tr th:each="major : ${majorMap}">
+                    <td th:text="${major.key}"></td>
+                    <td th:text="${major.value}"></td>
                     <td>
                         <a>삭제</a>
                         <a>수정</a>
