@@ -62,6 +62,24 @@
             </caption>
             <thead>
                 <tr>
+                    <td colspan="6">
+                        <form action="/student/insert" method="post">
+                            <!--학생정보 추가하는 폼-->
+                            <input type="text" name="sno" placeholder="학번 입력하세요">
+                            <input type="text" name="sname" placeholder="이름 입력하세요">
+                            <select name="gender">
+                                <option value="M">남</option>
+                                <option value="F">여</option>
+                            </select>
+                            <select name="mno">
+                                <option th:each="major : ${majorMap}" th:value="${major.key}" th:text="${major.value}">                                </option>
+                            </select>
+                            <input type="text" name="score" placeholder="평점입력하세요">
+                            <button>추가</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
                     <th>학번</th>
                     <th>이름</th>
                     <th>학과명</th>
