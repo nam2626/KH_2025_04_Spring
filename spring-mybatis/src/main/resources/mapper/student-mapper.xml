@@ -6,5 +6,7 @@
     <select id="selectAllStudent" resultType="student">
         select * from student
     </select>
-
+    <delete id="deleteStudent">
+        delete from student where sno = #{sno}
+    </delete>
 </mapper>

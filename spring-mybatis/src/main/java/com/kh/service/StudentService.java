@@ -17,4 +17,8 @@ public class StudentService {
     public List<StudentDTO> selectAllStudent() {
         return studentMapper.selectAllStudent();
     }
+
+    public int deleteStudent(String sno) {
+        return studentMapper.deleteStudent(sno);
+    }
 }

@@ -8,4 +8,5 @@ import java.util.List;
 @Mapper
 public interface StudentMapper {
     List<StudentDTO> selectAllStudent();
+    int deleteStudent(String sno);
 }
