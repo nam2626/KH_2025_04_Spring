@@ -15,4 +15,8 @@ public class MajorService {
     public List<MajorDTO> selectAllMajor() {
         return majorMapper.selectAllMajor();
     }
+
+  public int deleteMajor(String mno) {
+      return majorMapper.deleteMajor(mno);
+  }
 }

@@ -6,5 +6,7 @@
     <select id="selectAllMajor" resultType="major">
         SELECT * FROM major
     </select>
-
+    <delete id="deleteMajor">
+        delete from major where mno = #{mno}
+    </delete>
 </mapper>

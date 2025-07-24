@@ -7,5 +7,6 @@ import java.util.List;
 
 @Mapper
 public interface MajorMapper {
-    List<MajorDTO> selectAllMajor();
+  List<MajorDTO> selectAllMajor();
+  int deleteMajor(String mno);
 }
