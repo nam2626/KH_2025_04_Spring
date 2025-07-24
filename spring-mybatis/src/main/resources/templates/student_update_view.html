@@ -11,11 +11,11 @@
         학번 : <input type="text" name="sno" th:value="${student.sno}" readonly><br>
         이름 : <input type="text" name="sname" th:value="${student.sname}"><br>
         학과명 : <select name="mno">
-            <option th:each="major : ${session.majorMap}" th:value="${major.key}" th:text="${major.value}"></option>
+            <option th:each="major : ${session.majorMap}" th:value="${major.key}" th:text="${major.value}" th:selected="${major.key == student.mno}" ></option>
         </select><br>
         평점 : <input type="text" name="score" th:value="${student.score}"><br>
-        성별 : <input type="radio" name="gender" id="g1" value="M"> <label for="g1">남</label>
-        <input type="radio" name="gender" id="g2" value="F"> <label for="g2">여</label><br>
+        성별 : <input type="radio" name="gender" id="g1" value="M" th:checked="${student.gender == 'M'}"> <label for="g1">남</label>
+        <input type="radio" name="gender" id="g2" value="F" th:checked="${student.gender == 'F'}"> <label for="g2">여</label><br>
         <button>수정하기</button>
         <button type="button" onclick="history.back();">뒤로가기</button>
 
