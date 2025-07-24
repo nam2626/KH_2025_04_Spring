@@ -9,4 +9,7 @@
     <delete id="deleteStudent">
         delete from student where sno = #{sno}
     </delete>
+    <select id="selectStudentBySno" resultType="student">
+        select * from student where sno = #{sno}
+    </select>
 </mapper>

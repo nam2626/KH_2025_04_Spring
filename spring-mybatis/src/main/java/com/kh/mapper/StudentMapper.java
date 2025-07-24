@@ -9,4 +9,5 @@ import java.util.List;
 public interface StudentMapper {
     List<StudentDTO> selectAllStudent();
     int deleteStudent(String sno);
+    StudentDTO selectStudentBySno(String sno);
 }

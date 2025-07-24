@@ -21,4 +21,8 @@ public class StudentService {
     public int deleteStudent(String sno) {
         return studentMapper.deleteStudent(sno);
     }
+
+    public StudentDTO selectStudentBySno(String sno) {
+        return studentMapper.selectStudentBySno(sno);
+    }
 }
