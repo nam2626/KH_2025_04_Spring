@@ -4,6 +4,7 @@ import com.kh.dto.MajorDTO;
 import com.kh.dto.StudentDTO;
 import com.kh.service.MajorService;
 import com.kh.service.StudentService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,7 +25,7 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public ModelAndView main(ModelAndView view) {
+    public ModelAndView main(ModelAndView view, HttpSession session) {
         //학생 정보 목록 받음
         List<StudentDTO> studentList = studentService.selectAllStudent();
         System.out.println(studentList);
@@ -39,6 +40,7 @@ public class MainController {
         view.addObject("studentList", studentList);
         view.addObject("majorList", majorList);
         view.addObject("majorMap", majorMap);
+        session.setAttribute("majorMap",majorMap);
         view.setViewName("main");
         return view;
     }
