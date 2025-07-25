@@ -112,11 +112,19 @@
         document.querySelectorAll('.btn_update')
               .forEach(item => item.onclick = updateMajor);
     }
+    function addMajor(){
+      let data = {};
+      document.querySelector('.btn_add_major').parentElement.querySelectorAll('input').forEach(item => data[item.className] = item.value);
+      console.log(data);
+      //fetch 호출
+
+    }
     window.onload = () =>{
       document.querySelectorAll('.btn_delete')
               .forEach(item => item.onclick = deleteMajor);
       document.querySelectorAll('.btn_update')
               .forEach(item => item.onclick = updateMajor);
+      document.querySelector('.btn_add_major').onclick = addMajor;
     }
 
   </script>
@@ -182,6 +190,13 @@
     <table>
       <caption><h3>학과 관리</h3></caption>
       <thead>
+      <tr>
+        <td colspan="3">
+          <input type="text" class="mno" placeholder="학과번호 입력">
+          <input type="text" class="mname" placeholder="학과명 입력">
+          <button type="button" class="btn_add_major">학과 정보 추가</button>
+        </td>
+      </tr>
       <tr>
         <th>학과번호</th>
         <th>학과명</th>
