@@ -150,6 +150,32 @@
       document.querySelectorAll('.btn_update')
               .forEach(item => item.onclick = updateMajor);
       document.querySelector('.btn_add_major').onclick = addMajor;
+      document.querySelector('.txt_search').onkeyup =async (e) => {
+        const search = e.target.value;
+
+        const response = await fetch(`/major/search?search=${search}`);
+        const json = await response.json();
+
+        alert(json.msg);
+        let tag = json.majorList.reduce((prev, cur) => `${prev}
+         <tr>
+          <td>${cur.mno}</td>
+          <td>
+            <input type='text' value='${cur.mname}'>
+          </td>
+          <td>
+            <button class='btn_delete'>삭제</button>
+            <button class='btn_update'>수정</button>
+           </td>
+         </tr>`,'');
+         document.querySelector('.major_area').innerHTML = tag;
+         document.querySelectorAll('.btn_delete')
+                .forEach(item => item.onclick = deleteMajor);
+          document.querySelectorAll('.btn_update')
+                .forEach(item => item.onclick = updateMajor);
+
+      }
+
     }
 
   </script>
@@ -215,6 +241,12 @@
     <table>
       <caption><h3>학과 관리</h3></caption>
       <thead>
+      <tr>
+        <td colspan="3">
+          <!-- 검색어 입력하는 컨트롤에 글자가 입력이 될때마다 검색 결과를 출력 -->
+          <input type="text" class="txt_search" placeholder="검색할 학과명 일부 입력">
+        </td>
+      </tr>
       <tr>
         <td colspan="3">
           <input type="text" class="mno" placeholder="학과번호 입력">
