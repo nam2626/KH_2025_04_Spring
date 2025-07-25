@@ -16,4 +16,8 @@
         insert into major(mno,mname)
         values(#{mno},#{mname})
     </insert>
+
+    <select id="searchMajor" resultType="major">
+        select * from major where mname like '%' || #{search} || '%'
+    </select>
 </mapper>

@@ -28,4 +28,8 @@ public class MajorService {
   public int insertMajor(Map<String, Object> body) {
       return majorMapper.insertMajor(body);
   }
+
+  public List<MajorDTO> searchMajor(String search) {
+      return majorMapper.searchMajor(search);
+  }
 }

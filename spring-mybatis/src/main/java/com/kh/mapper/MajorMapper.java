@@ -12,4 +12,5 @@ public interface MajorMapper {
   int deleteMajor(String mno);
   int updateMajor(Map<String, Object> body);
   int insertMajor(Map<String, Object> body);
+  List<MajorDTO> searchMajor(String search);
 }

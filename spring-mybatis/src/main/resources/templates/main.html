@@ -156,7 +156,6 @@
         const response = await fetch(`/major/search?search=${search}`);
         const json = await response.json();
 
-        alert(json.msg);
         let tag = json.majorList.reduce((prev, cur) => `${prev}
          <tr>
           <td>${cur.mno}</td>
