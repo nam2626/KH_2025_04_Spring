@@ -12,4 +12,8 @@
     <update id="updateMajor">
         update major set mname = #{mname} where mno = #{mno}
     </update>
+    <insert id="insertMajor">
+        insert into major(mno,mname)
+        values(#{mno},#{mname})
+    </insert>
 </mapper>

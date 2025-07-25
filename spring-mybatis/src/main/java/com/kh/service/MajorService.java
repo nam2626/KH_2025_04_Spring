@@ -24,4 +24,8 @@ public class MajorService {
   public int updateMajor(Map<String, Object> body) {
     return majorMapper.updateMajor(body);
   }
+
+  public int insertMajor(Map<String, Object> body) {
+      return majorMapper.insertMajor(body);
+  }
 }

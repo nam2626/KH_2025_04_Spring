@@ -51,7 +51,22 @@ public class MajorController {
   }
 
   //추가
+  @PostMapping
+  public  Map<String, Object> insertMajor(@RequestBody Map<String, Object> body){
+    Map<String, Object> map = new HashMap<>();
+    System.out.println(body);
 
+    int count = majorService.insertMajor(body);
+    if(count == 0)
+      map.put("msg","추가할 해당 학과 정보가 잘못되었습니다.");
+    else
+      map.put("msg","학과 정보 추가가 완료되었습니다.");
+    map.put("count",count);
+    //전체 학과정보 조회해서 map에 넣어서 전달
+    List<MajorDTO> majorList = majorService.selectAllMajor();
+    map.put("majorList", majorList);
+    return map;
+  }
   //조회
 
 }

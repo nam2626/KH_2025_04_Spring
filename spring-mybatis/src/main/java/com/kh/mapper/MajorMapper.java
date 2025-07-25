@@ -11,4 +11,5 @@ public interface MajorMapper {
   List<MajorDTO> selectAllMajor();
   int deleteMajor(String mno);
   int updateMajor(Map<String, Object> body);
+  int insertMajor(Map<String, Object> body);
 }

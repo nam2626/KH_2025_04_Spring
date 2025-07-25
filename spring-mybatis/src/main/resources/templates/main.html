@@ -126,7 +126,7 @@
       });
       const json = await response.json();
       alert(json.msg);
-      let tag = data.majorList.reduce((prev, cur) => `${prev}
+      let tag = json.majorList.reduce((prev, cur) => `${prev}
        <tr>
         <td>${cur.mno}</td>
         <td>
