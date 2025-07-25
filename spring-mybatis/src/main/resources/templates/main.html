@@ -112,11 +112,36 @@
         document.querySelectorAll('.btn_update')
               .forEach(item => item.onclick = updateMajor);
     }
-    function addMajor(){
+    async function addMajor(){
       let data = {};
       document.querySelector('.btn_add_major').parentElement.querySelectorAll('input').forEach(item => data[item.className] = item.value);
       console.log(data);
       //fetch 호출
+      const response = await fetch("/major",{
+        method : 'POST',
+        headers : {
+          'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify(data)
+      });
+      const json = await response.json();
+      alert(json.msg);
+      let tag = data.majorList.reduce((prev, cur) => `${prev}
+       <tr>
+        <td>${cur.mno}</td>
+        <td>
+          <input type='text' value='${cur.mname}'>
+        </td>
+        <td>
+          <button class='btn_delete'>삭제</button>
+          <button class='btn_update'>수정</button>
+         </td>
+       </tr>`,'');
+       document.querySelector('.major_area').innerHTML = tag;
+       document.querySelectorAll('.btn_delete')
+              .forEach(item => item.onclick = deleteMajor);
+        document.querySelectorAll('.btn_update')
+              .forEach(item => item.onclick = updateMajor);
 
     }
     window.onload = () =>{
