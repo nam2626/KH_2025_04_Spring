@@ -38,7 +38,12 @@ public class MajorController {
     Map<String, Object> map = new HashMap<>();
     System.out.println(body);
     //학과 정보 수정
-
+    int count = majorService.updateMajor(body);
+    if(count == 0)
+      map.put("msg","수정할 해당 학과 정보가 없습니다.");
+    else
+      map.put("msg","학과 정보 수정이 완료되었습니다.");
+    map.put("count",count);
     //전체 학과정보 조회해서 map에 넣어서 전달
     List<MajorDTO> majorList = majorService.selectAllMajor();
     map.put("majorList", majorList);

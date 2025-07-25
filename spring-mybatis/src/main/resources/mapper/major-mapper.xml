@@ -9,4 +9,7 @@
     <delete id="deleteMajor">
         delete from major where mno = #{mno}
     </delete>
+    <update id="updateMajor">
+        update major set mname = #{mname} where mno = #{mno}
+    </update>
 </mapper>

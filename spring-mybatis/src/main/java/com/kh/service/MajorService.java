@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MajorService {
@@ -18,5 +19,9 @@ public class MajorService {
 
   public int deleteMajor(String mno) {
       return majorMapper.deleteMajor(mno);
+  }
+
+  public int updateMajor(Map<String, Object> body) {
+    return majorMapper.updateMajor(body);
   }
 }

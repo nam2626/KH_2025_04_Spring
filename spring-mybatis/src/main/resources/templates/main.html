@@ -74,6 +74,8 @@
        document.querySelector('.major_area').innerHTML = tag;
         document.querySelectorAll('.btn_delete')
               .forEach(item => item.onclick = deleteMajor);
+        document.querySelectorAll('.btn_update')
+              .forEach(item => item.onclick = updateMajor);
     }
     const updateMajor = async function() {
       const mno = this.closest('tr').children[0].innerText;
@@ -92,6 +94,23 @@
       });
       const json = await response.json();
       console.log(json);
+      alert(json.msg);
+      let tag = data.majorList.reduce((prev, cur) => `${prev}
+       <tr>
+        <td>${cur.mno}</td>
+        <td>
+          <input type='text' value='${cur.mname}'>
+        </td>
+        <td>
+          <button class='btn_delete'>삭제</button>
+          <button class='btn_update'>수정</button>
+         </td>
+       </tr>`,'');
+       document.querySelector('.major_area').innerHTML = tag;
+       document.querySelectorAll('.btn_delete')
+              .forEach(item => item.onclick = deleteMajor);
+        document.querySelectorAll('.btn_update')
+              .forEach(item => item.onclick = updateMajor);
     }
     window.onload = () =>{
       document.querySelectorAll('.btn_delete')
