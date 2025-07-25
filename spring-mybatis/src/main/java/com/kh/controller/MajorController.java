@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 @RequestMapping("/major")
 @RestController
 public class MajorController {
@@ -76,6 +77,15 @@ public class MajorController {
     List<MajorDTO> majorList = majorService.searchMajor(search);
     map.put("majorList", majorList);
 
+    return map;
+  }
+
+  @GetMapping("/list")
+  public Map<String, Object> selectAllMajor() {
+    Map<String, Object> map = new HashMap<>();
+    //전체 학과정보 조회해서 map에 넣어서 전달
+    List<MajorDTO> majorList = majorService.selectAllMajor();
+    map.put("majorList", majorList);
     return map;
   }
 }
