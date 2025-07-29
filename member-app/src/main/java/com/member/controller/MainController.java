@@ -43,4 +43,19 @@ public class MainController {
     }
     return map;
   }
+
+  @GetMapping("/{id}")
+  public Map<String, Object> checkId(@PathVariable String id){
+    Map<String, Object> map = new HashMap<>();
+
+    BoardMemberDTO member = service.selectMember(id);
+
+    map.put("result", member == null ? false : true);
+
+    return map;
+  }
 }
+
+
+
+

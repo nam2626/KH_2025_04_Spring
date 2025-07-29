@@ -10,4 +10,7 @@
         insert into board_member(id,passwd,username,nickname)
         values(#{id},standard_hash(#{passwd},'SHA512'),#{userName},#{nickName})
     </insert>
+    <select id="selectMember" resultType="member">
+        select * from board_member where id like #{id}
+    </select>
 </mapper>

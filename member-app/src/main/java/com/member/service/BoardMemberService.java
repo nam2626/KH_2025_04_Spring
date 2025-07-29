@@ -22,4 +22,8 @@ public class BoardMemberService {
   public int insertMember(Map<String, Object> requestBody) {
     return mapper.insertMember(requestBody);
   }
+
+  public BoardMemberDTO selectMember(String id) {
+    return mapper.selectMember(id);
+  }
 }

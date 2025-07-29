@@ -10,4 +10,5 @@ import java.util.Map;
 public interface BoardMemberMapper {
   List<BoardMemberDTO> selectAllMember();
   int insertMember(Map<String, Object> requestBody);
+  BoardMemberDTO selectMember(String id);
 }
