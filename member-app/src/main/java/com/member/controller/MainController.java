@@ -54,6 +54,22 @@ public class MainController {
 
     return map;
   }
+
+  @DeleteMapping("/{id}")
+  public Map<String, Object> deleteMember(@PathVariable String id){
+    Map<String, Object> map = new HashMap<>();
+
+    int result = service.deleteMember(id);
+
+    if(result == 0)
+      map.put("msg","데이터 삭제 실패");
+    else
+      map.put("msg","데이터 삭제 성공");
+
+    map.put("result", result);
+
+    return map;
+  }
 }
 
 
