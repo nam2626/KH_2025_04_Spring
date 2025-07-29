@@ -31,11 +31,16 @@ public class MainController {
   public Map<String, Object> insertMember(@RequestBody Map<String, Object> requestBody){
     Map<String, Object> map = new HashMap<>();
     System.out.println(requestBody);
-    int result = service.insertMember(requestBody);
-    if(result != 0)
-      map.put("result", true);
-    else
+    try {
+      int result = service.insertMember(requestBody);
+      if (result != 0)
+        map.put("result", true);
+      else
+        map.put("result", false);
+    }catch (Exception e){
+      System.out.println(e.getMessage());
       map.put("result", false);
+    }
     return map;
   }
 }
