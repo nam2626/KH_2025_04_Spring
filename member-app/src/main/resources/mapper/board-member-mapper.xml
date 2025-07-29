@@ -13,4 +13,7 @@
     <select id="selectMember" resultType="member">
         select * from board_member where id like #{id}
     </select>
+    <delete id="deleteMember">
+        delete from board_member where id like #{id}
+    </delete>
 </mapper>
