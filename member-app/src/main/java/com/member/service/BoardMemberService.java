@@ -5,6 +5,7 @@ import com.member.mapper.BoardMemberMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BoardMemberService {
@@ -16,5 +17,9 @@ public class BoardMemberService {
 
   public List<BoardMemberDTO> selectAllMember() {
     return mapper.selectAllMember();
+  }
+
+  public int insertMember(Map<String, Object> requestBody) {
+    return mapper.insertMember(requestBody);
   }
 }

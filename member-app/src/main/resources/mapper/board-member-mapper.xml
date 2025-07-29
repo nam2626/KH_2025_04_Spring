@@ -6,4 +6,8 @@
     <select id="selectAllMember" resultType="member">
         select * from board_member
     </select>
+    <insert id="insertMember">
+        insert into board_member(id,passwd,username,nickname)
+        values(#{id},standard_hash(#{passwd},'SHA512'),#{userName},#{nickName})
+    </insert>
 </mapper>
