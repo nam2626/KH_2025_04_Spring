@@ -30,4 +30,8 @@ public class BoardMemberService {
   public int deleteMember(String id) {
     return mapper.deleteMember(id);
   }
+
+  public int updateMember(Map<String, Object> body) {
+    return mapper.updateMember(body);
+  }
 }

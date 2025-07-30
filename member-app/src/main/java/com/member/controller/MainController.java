@@ -54,7 +54,17 @@ public class MainController {
 
     return map;
   }
+  @GetMapping("/update/{id}")
+  public Map<String, Object> updateMemberInfo(@PathVariable String id){
+    Map<String, Object> map = new HashMap<>();
 
+    BoardMemberDTO member = service.selectMember(id);
+    if(member != null)
+      map.put("member", member);
+    map.put("result", member == null ? false : true);
+
+    return map;
+  }
   @DeleteMapping("/{id}")
   public Map<String, Object> deleteMember(@PathVariable String id){
     Map<String, Object> map = new HashMap<>();
@@ -70,6 +80,19 @@ public class MainController {
 
     return map;
   }
+  //회원정보 Update 메서드 추가
+  @PatchMapping("/update")
+  public Map<String, Object> updateMember(@RequestBody Map<String, Object> body){
+    Map<String, Object> map = new HashMap<>();
+    System.out.println(body);
+
+    int result = service.updateMember(body);
+
+    map.put("result",result == 0 ? false : true);
+
+    return map;
+  }
+
 }
 
 

@@ -12,4 +12,5 @@ public interface BoardMemberMapper {
   int insertMember(Map<String, Object> requestBody);
   BoardMemberDTO selectMember(String id);
   int deleteMember(String id);
+  int updateMember(Map<String, Object> body);
 }
