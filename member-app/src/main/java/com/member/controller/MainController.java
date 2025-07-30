@@ -92,7 +92,15 @@ public class MainController {
 
     return map;
   }
-
+  @GetMapping("/search")
+  public Map<String, Object> searchMember(String kind, String search){
+    System.out.println(kind +" " + search);
+    List<BoardMemberDTO> list = service.searchMember(kind, search);
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put("memberList",list);
+    map.put("count",list.size());
+    return map;
+  }
 }
 
 
