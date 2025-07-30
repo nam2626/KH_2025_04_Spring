@@ -4,6 +4,7 @@ import com.member.dto.BoardMemberDTO;
 import com.member.mapper.BoardMemberMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,5 +34,12 @@ public class BoardMemberService {
 
   public int updateMember(Map<String, Object> body) {
     return mapper.updateMember(body);
+  }
+
+  public List<BoardMemberDTO> searchMember(String kind, String search) {
+    Map<String, Object> map = new HashMap<>();
+    map.put("kind",kind);
+    map.put("search", search);
+    return mapper.searchMember(map);
   }
 }

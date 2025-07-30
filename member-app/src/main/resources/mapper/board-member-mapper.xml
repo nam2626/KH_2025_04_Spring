@@ -21,4 +21,8 @@
         username=#{userName}, nickname=#{nickName}
         where id like #{id}
     </update>
+    <select id="searchMember" resultType="member">
+        select * from board_member
+        where ${kind} like '%' || #{search} || '%'
+    </select>
 </mapper>
