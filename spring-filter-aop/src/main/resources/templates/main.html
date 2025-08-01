@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .container {
+        width: 80%;
+        margin: 0 auto;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    caption {
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+    a {
+        margin-right: 10px;
+        text-decoration: none;
+        color: blue;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    h2 {
+        text-align: center;
+        margin-top: 20px;
+    }
+    h3 {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    article {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: flex-start;
+    }
+
+
+  </style>
+  <script>
+    const deleteMajor = async function(){
+       console.log(this.closest('tr').children[0]);
+       const mno = this.closest('tr').children[0].innerText;
+
+       const response = await fetch(`/major/${mno}`,{
+        method : 'DELETE'
+       });
+       const data = await response.json();
+       console.log(data);
+       alert(data.msg);
+       let tag = data.majorList.reduce((prev, cur) => `${prev}
+       <tr>
+        <td>${cur.mno}</td>
+        <td>
+          <input type='text' value='${cur.mname}'>
+        </td>
+        <td>
+          <button class='btn_delete'>삭제</button>
+          <button class='btn_update'>수정</button>
+         </td>
+       </tr>`,'');
+       document.querySelector('.major_area').innerHTML = tag;
+        document.querySelectorAll('.btn_delete')
+              .forEach(item => item.onclick = deleteMajor);
+        document.querySelectorAll('.btn_update')
+              .forEach(item => item.onclick = updateMajor);
+    }
+    const updateMajor = async function() {
+      const mno = this.closest('tr').children[0].innerText;
+      const mname = this.closest('tr').querySelector('input').value;
+      console.log(mno,mname);
+      const data = {
+        mno : mno,
+        mname : mname
+      };
+      const response = await fetch('/major',{
+        method : 'PATCH',
+        headers : {
+          'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify(data)
+      });
+      const json = await response.json();
+      console.log(json);
+      alert(json.msg);
+      let tag = data.majorList.reduce((prev, cur) => `${prev}
+       <tr>
+        <td>${cur.mno}</td>
+        <td>
+          <input type='text' value='${cur.mname}'>
+        </td>
+        <td>
+          <button class='btn_delete'>삭제</button>
+          <button class='btn_update'>수정</button>
+         </td>
+       </tr>`,'');
+       document.querySelector('.major_area').innerHTML = tag;
+       document.querySelectorAll('.btn_delete')
+              .forEach(item => item.onclick = deleteMajor);
+        document.querySelectorAll('.btn_update')
+              .forEach(item => item.onclick = updateMajor);
+    }
+    async function addMajor(){
+      let data = {};
+      document.querySelector('.btn_add_major').parentElement.querySelectorAll('input').forEach(item => data[item.className] = item.value);
+      console.log(data);
+      //fetch 호출
+      const response = await fetch("/major",{
+        method : 'POST',
+        headers : {
+          'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify(data)
+      });
+      const json = await response.json();
+      alert(json.msg);
+      let tag = json.majorList.reduce((prev, cur) => `${prev}
+       <tr>
+        <td>${cur.mno}</td>
+        <td>
+          <input type='text' value='${cur.mname}'>
+        </td>
+        <td>
+          <button class='btn_delete'>삭제</button>
+          <button class='btn_update'>수정</button>
+         </td>
+       </tr>`,'');
+       document.querySelector('.major_area').innerHTML = tag;
+       document.querySelectorAll('.btn_delete')
+              .forEach(item => item.onclick = deleteMajor);
+        document.querySelectorAll('.btn_update')
+              .forEach(item => item.onclick = updateMajor);
+
+    }
+    window.onload = () =>{
+      document.querySelectorAll('.btn_delete')
+              .forEach(item => item.onclick = deleteMajor);
+      document.querySelectorAll('.btn_update')
+              .forEach(item => item.onclick = updateMajor);
+      document.querySelector('.btn_add_major').onclick = addMajor;
+      document.querySelector('.txt_search').onkeyup =async (e) => {
+        const search = e.target.value;
+
+        const response = await fetch(`/major/search?search=${search}`);
+        const json = await response.json();
+
+        let tag = json.majorList.reduce((prev, cur) => `${prev}
+         <tr>
+          <td>${cur.mno}</td>
+          <td>
+            <input type='text' value='${cur.mname}'>
+          </td>
+          <td>
+            <button class='btn_delete'>삭제</button>
+            <button class='btn_update'>수정</button>
+           </td>
+         </tr>`,'');
+         document.querySelector('.major_area').innerHTML = tag;
+         document.querySelectorAll('.btn_delete')
+                .forEach(item => item.onclick = deleteMajor);
+          document.querySelectorAll('.btn_update')
+                .forEach(item => item.onclick = updateMajor);
+
+      }
+
+    }
+
+  </script>
+</head>
+<body>
+<div class="container">
+  <h2>학생 정보 관리 페이지</h2>
+  <article>
+
+
+    <table>
+      <caption>
+        <h3>학생 정보</h3>
+      </caption>
+      <thead>
+      <tr>
+        <td colspan="6">
+          <form action="/student/insert" method="post">
+            <!--학생정보 추가하는 폼-->
+            <input type="text" name="sno" placeholder="학번 입력하세요">
+            <input type="text" name="sname" placeholder="이름 입력하세요">
+            <select name="gender">
+              <option value="M">남</option>
+              <option value="F">여</option>
+            </select>
+            <select name="mno">
+              <option th:each="major : ${majorMap}" th:value="${major.key}" th:text="${major.value}"></option>
+            </select>
+            <input type="text" name="score" placeholder="평점입력하세요">
+            <button>추가</button>
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <th>학번</th>
+        <th>이름</th>
+        <th>학과명</th>
+        <th>평점</th>
+        <th>성별</th>
+        <th>비고</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="student : ${studentList}">
+        <td th:text="${student.sno}"></td>
+        <td th:text="${student.sname}"></td>
+        <td>
+          <!--학과번호를 이용해서 학과명으로 변환 - (if, forEach)-->
+          <!-- block은 타임리프에서 제공하는 태그, 렌더링시 제거된다. -->
+          <!--                        <th:block th:each="major : ${majorList}"-->
+          <!--                              th:if="${major.mno == student.mno}" th:text="${major.mname}"></th:block>-->
+          <th:block th:text="${majorMap.get(student.mno)}"></th:block>
+        </td>
+        <td th:text="${student.score}"></td>
+        <td th:text="${student.gender}"></td>
+        <td>
+          <a th:href="@{/student/delete/{sno}(sno=${student.sno})}">삭제</a>
+          <a th:href="@{/student/update/view(sno=${student.sno})}">수정</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <table>
+      <caption><h3>학과 관리</h3></caption>
+      <thead>
+      <tr>
+        <td colspan="3">
+          <!-- 검색어 입력하는 컨트롤에 글자가 입력이 될때마다 검색 결과를 출력 -->
+          <input type="text" class="txt_search" placeholder="검색할 학과명 일부 입력">
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <input type="text" class="mno" placeholder="학과번호 입력">
+          <input type="text" class="mname" placeholder="학과명 입력">
+          <button type="button" class="btn_add_major">학과 정보 추가</button>
+        </td>
+      </tr>
+      <tr>
+        <th>학과번호</th>
+        <th>학과명</th>
+        <th>비고</th>
+      </tr>
+      </thead>
+      <tbody class="major_area">
+      <!-- 맵에 들어간 데이터 한건씩 출력-->
+      <tr th:each="major : ${majorMap}">
+        <td th:text="${major.key}"></td>
+        <td><input type="text" th:value="${major.value}"></td>
+        <td>
+          <button class="btn_delete">삭제</button>
+          <button class="btn_update">수정</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </article>
+</div>
+</body>
+</html>
