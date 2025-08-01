@@ -1,8 +1,10 @@
 package com.kh.aop;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StopWatch;
 
 import java.util.Arrays;
 
@@ -33,21 +35,41 @@ public class MemberAOP {
     System.out.println("afterTest - args : " + Arrays.toString(joinPoint.getArgs()));
   }
 
-
+  // 실행 후 리턴 값을 받을 때, 데이터가 없으면 null 값 받아옴
   @AfterReturning(pointcut = "execution(* com.kh.service.*.*(..))", returning = "returnObj")
   public void afterReturingTest(JoinPoint joinPoint, Object returnObj){
     System.out.println("afterReturningTest : " + joinPoint.getSignature().getDeclaringType().getName() + " / " + joinPoint.getSignature().getName());
 
     System.out.println("afterReturningTest : " + returnObj);
   }
+
+  // 메서드에서 Exception을 throws 하는 경우 실행
   @AfterThrowing(pointcut = "execution(* com.kh.service.*.*(..))", throwing = "exception")
   public void afterThrowingTest(JoinPoint joinPoint, Exception exception){
     System.out.println("afterThrowingTest : " + joinPoint.getSignature().getDeclaringType().getName() + " / " + joinPoint.getSignature().getName());
 
     System.out.println("afterThrowingTest : " + exception.getMessage());
   }
-}
 
+  @Around("execution(* com.kh.mapper.*.*(..))")
+  public Object aroundTest(ProceedingJoinPoint joinPoint) throws Throwable{
+    System.out.println("Around Test Start");
+    //메서드 실행 시간 체크해서 출력
+    StopWatch stopWatch = new StopWatch();
+
+    // 메서드 실행하는 부분
+    stopWatch.start();
+    Object obj = joinPoint.proceed();
+    stopWatch.stop();
+    System.out.println(stopWatch.prettyPrint());
+
+    System.out.println("Around return : " + obj);
+    System.out.println("Around Test End");
+
+    return obj;
+  }
+
+}
 
 
 
