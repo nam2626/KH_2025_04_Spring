@@ -3,13 +3,12 @@ package com.kh.aop;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
 import java.util.Arrays;
 
-@Component
-@Aspect
+//@Component
+//@Aspect
 public class MemberAOP {
   //포인트컷에서는 제네릭은 적용되지 않음
   // JoinPoint 이전에 실행
