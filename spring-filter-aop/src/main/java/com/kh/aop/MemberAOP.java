@@ -18,4 +18,17 @@ public class MemberAOP {
     System.out.println(joinPoint.getSignature().getDeclaringType().getName() + " / " + joinPoint.getSignature().getName());
     System.out.println(Arrays.toString(joinPoint.getArgs()));
   }
+  // 모든 리턴타입, com.kh 패키지 하위 패키지까지 포함, 모든 클래스, 모든 메서드, 매개변수는 모든 형태를 지원
+  @Before("execution(* com.kh..*.*(..))")
+  public void beforeTest(JoinPoint joinPoint){
+    System.out.println("beforeTest : " + joinPoint.getSignature().getDeclaringType().getName() + " / " + joinPoint.getSignature().getName());
+    System.out.println("beforeTest - args : " + Arrays.toString(joinPoint.getArgs()));
+  }
 }
+
+
+
+
+
+
+
