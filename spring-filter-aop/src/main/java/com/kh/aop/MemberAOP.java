@@ -1,8 +1,7 @@
 package com.kh.aop;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -23,6 +22,29 @@ public class MemberAOP {
   public void beforeTest(JoinPoint joinPoint){
     System.out.println("beforeTest : " + joinPoint.getSignature().getDeclaringType().getName() + " / " + joinPoint.getSignature().getName());
     System.out.println("beforeTest - args : " + Arrays.toString(joinPoint.getArgs()));
+  }
+  //JoinPoint 이후에 실행
+  //모든 리턴 타입, com.kh.service 패키지 내에 있는 모든 클래스
+  //모든 메서드, 모든 매개변수 형태 지원
+  @After("execution(* com.kh.service.*.*(..))")
+  public void afterTest(JoinPoint joinPoint){
+    System.out.println("afterTest : " + joinPoint.getSignature().getDeclaringType().getName() + " / " + joinPoint.getSignature().getName());
+
+    System.out.println("afterTest - args : " + Arrays.toString(joinPoint.getArgs()));
+  }
+
+
+  @AfterReturning(pointcut = "execution(* com.kh.service.*.*(..))", returning = "returnObj")
+  public void afterReturingTest(JoinPoint joinPoint, Object returnObj){
+    System.out.println("afterReturningTest : " + joinPoint.getSignature().getDeclaringType().getName() + " / " + joinPoint.getSignature().getName());
+
+    System.out.println("afterReturningTest : " + returnObj);
+  }
+  @AfterThrowing(pointcut = "execution(* com.kh.service.*.*(..))", throwing = "exception")
+  public void afterThrowingTest(JoinPoint joinPoint, Exception exception){
+    System.out.println("afterThrowingTest : " + joinPoint.getSignature().getDeclaringType().getName() + " / " + joinPoint.getSignature().getName());
+
+    System.out.println("afterThrowingTest : " + exception.getMessage());
   }
 }
 
