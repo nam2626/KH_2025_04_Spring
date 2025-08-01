@@ -12,8 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.assertj.core.api.Fail.fail;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest
@@ -21,6 +20,32 @@ class SpringFilterAopApplicationTests {
 
 	@Autowired
 	private MajorService service;
+
+	//전체 테스트 수행 전에 실행할 메서드 - 반드시 static 처리
+	@BeforeAll
+	public static void initAll(){
+		System.out.println("전체 테스트 수행 전 맨처음 한번만 실행되는 코드");
+	}
+
+	//모든 메서드 실행 후 한번만 실행 - 반드시 static 처리
+	@AfterAll
+	public static void endTestAll() {
+		System.out.println("테스트 종료 후 코드");
+	}
+
+	//각 테스트 메서드 실행 전에 실행하는 메서드
+	@BeforeEach
+	public void testBefore(TestInfo info) {
+		System.out.println("테스트 메서드 수행전에 수행하는 메서드");
+		System.out.println(info.getTestMethod().get().getName() + " - "
+						+ info.getDisplayName());
+	}
+
+	//각 테스트 메서드 실행 후에 실행하는 메서드
+	@AfterEach
+	public void testAfter() {
+		System.out.println("테스트 메서드 수행후에 수행하는 메서드");
+	}
 
 	@Order(2)
 	@DisplayName("학과 정보 등록 테스트")
@@ -63,5 +88,29 @@ class SpringFilterAopApplicationTests {
 
 	}
 
+	@DisplayName("배열 비교 테스트")
+	@Order(4)
+	@Test
+	public void arrayTest() {
+		assertArrayEquals(new int[]{1, 2, 3, 4}, new int[]{1, 2, 3});
+	}
 
+	@DisplayName("결과값 True/False 테스트 확인")
+	@Order(5)
+	@Test
+	public void assertTrueFalseTest() {
+//		assertTrue(3 < 2);
+		assertFalse(3 < 2);
+
+	}
+
+	@DisplayName("여러개의 테스트 확인")
+	@Order(6)
+	@Test
+	public void assertAllTest() {
+		assertAll(
+						() -> assertEquals(4, 2 + 2),
+						() -> assertTrue(3 > 3)
+		);
+	}
 }
