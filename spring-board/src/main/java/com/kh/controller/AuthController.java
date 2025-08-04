@@ -3,8 +3,11 @@ package com.kh.controller;
 import com.kh.config.PasswordEncoder;
 import com.kh.dto.AuthRequest;
 import com.kh.dto.BoardMemberDTO;
+import com.kh.dto.JwtResponse;
 import com.kh.service.UserService;
 import com.kh.util.JwtTokenProvider;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,6 +39,32 @@ public class AuthController {
 
     userService.registerUser(newUser);
     return ResponseEntity.status(HttpStatus.CREATED).body("사용자가 정상적으로 등록되었습니다.");
+  }
+
+  @PostMapping("/login")
+  public ResponseEntity<JwtResponse> login(@Valid @RequestBody AuthRequest request, HttpServletResponse response){
+    //1. 사용자 입력한 아이디 값에 해당하는 회원정보를 조회해서 가져옴
+    BoardMemberDTO user = userService.findByUserid(request.getUserid());
+    //2. 사용자가 입력한 암호를 암호화 한 후에 회원 정보의 암호와 비교
+    if(user == null || !passwordEncoder.mathces(request.getPassword(), user.getPassword())){
+      //인증 실패
+      return  ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+    }
+    //3. 토큰 생성(access, refresh)
+    String accessToken = jwtTokenProvider.generateAccessToken(user);
+    String refreshToken = jwtTokenProvider.geneateRefreshToken(user);
+
+    Cookie refreshTokenCookie = new Cookie("refreshToken",refreshToken);
+    refreshTokenCookie.setHttpOnly(true);
+//    refreshTokenCookie.setSecure(true);//HTTPS 통신에서만 허용
+    refreshTokenCookie.setSecure(false);
+    refreshTokenCookie.setPath("/");//모든 경로에서 접근 가능
+    refreshTokenCookie.setMaxAge((int)(jwtTokenProvider.getRefreshTokenExpirationMs() / 1000));
+
+    response.addCookie(refreshTokenCookie);
+
+    return ResponseEntity.ok(new JwtResponse(accessToken,refreshToken,"Bearer"));
+
   }
 
 }
