@@ -67,7 +67,19 @@ public class AuthController {
     return ResponseEntity.ok(new JwtResponse(accessToken,refreshToken,"Bearer"));
 
   }
+  @PostMapping("/logout")
+  public ResponseEntity<String> logout(HttpServletResponse response){
+    //refresh token 삭제 (쿠키 삭제)
+    Cookie refreshTokenCookie = new Cookie("refreshToken", null);
+    refreshTokenCookie.setHttpOnly(true);
+//    refreshTokenCookie.setSecure(true);//HTTPS 통신에서만 허용
+    refreshTokenCookie.setSecure(false);
+    refreshTokenCookie.setPath("/");//모든 경로에서 접근 가능
+    refreshTokenCookie.setMaxAge(0);
 
+    response.addCookie(refreshTokenCookie);
+    return ResponseEntity.ok("성공적으로 로그아웃 되었습니다.");
+  }
   @GetMapping("/user-data")
   public ResponseEntity<String> getUserData(HttpServletRequest request){
     //회원 아이디를 꺼냄, request으로부터 추출
