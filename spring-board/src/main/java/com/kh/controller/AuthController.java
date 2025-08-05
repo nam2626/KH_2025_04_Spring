@@ -7,15 +7,15 @@ import com.kh.dto.JwtResponse;
 import com.kh.service.UserService;
 import com.kh.util.JwtTokenProvider;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -27,6 +27,7 @@ public class AuthController {
 
   @PostMapping("/signup")
   public ResponseEntity<String> signup(@Valid @RequestBody AuthRequest request){
+    System.out.println(request);
     if(userService.findByUserid(request.getUserid()) != null){
       return ResponseEntity.status(HttpStatus.CONFLICT).body("사용자 아이디가 이미 존재합니다.");
     }
@@ -67,6 +68,22 @@ public class AuthController {
 
   }
 
+  @GetMapping("/user-data")
+  public ResponseEntity<String> getUserData(HttpServletRequest request){
+    //회원 아이디를 꺼냄, request으로부터 추출
+    String id = (String) request.getAttribute("authenticatedUserid");
+
+    //회원 정보 조회해서 사용자에게 전달
+    BoardMemberDTO user = userService.findByid(Long.parseLong(id));
+    System.out.println("아이디 값 : "+ id);
+    System.out.println("사용자 정보 : " + user);
+
+    if (user == null) {
+      Map<String, String> errorResponse = Map.of("message","사용자를 찾으수 없습니다.","id",id);
+        return new ResponseEntity(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    return new ResponseEntity(user,HttpStatus.OK);
+  }
 }
 
 
