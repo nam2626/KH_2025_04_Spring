@@ -42,7 +42,7 @@ public class JwtAuthenticationFilter implements Filter {
 
     //2. 요청 경로를 뽑음
     String path = httpRequest.getServletPath();
-
+    System.out.println(path);
     //3. 리스트에 포함된 경로인지 확인.
     boolean isPublicPath = PUBLIC_PATHS.stream().anyMatch(path::startsWith);
     //4. 리스트에 포함된 경로면 인증 없이 바로 통과
@@ -74,7 +74,7 @@ public class JwtAuthenticationFilter implements Filter {
   }
   //토큰 추출하는 메서드
   private String resolveToken(HttpServletRequest request){
-    String bearerToken = request.getHeader("Authorizarion");
+    String bearerToken = request.getHeader("Authorization");
     if(bearerToken != null && bearerToken.startsWith("Bearer "))
       return bearerToken.substring(7);
     return null;

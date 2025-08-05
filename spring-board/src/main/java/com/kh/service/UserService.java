@@ -17,4 +17,8 @@ public class UserService {
   public void registerUser(BoardMemberDTO newUser) {
     userMapper.registerUser(newUser);
   }
+
+  public BoardMemberDTO findByid(long id) {
+    return userMapper.findByid(id);
+  }
 }

@@ -7,4 +7,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper {
   BoardMemberDTO findByUserid(String userid);
   void registerUser(BoardMemberDTO newUser);
+  BoardMemberDTO findByid(long id);
 }
