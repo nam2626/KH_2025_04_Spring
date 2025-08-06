@@ -27,6 +27,10 @@
         select count(*)
         from board_view
     </select>
+    <select id="selectBoard" resultMap="board">
+        select * from board_view where bno = #{bno}
+    </select>
+
     <select id="selectCommentList" resultType="comment">
         <![CDATA[
         select * from
@@ -35,7 +39,7 @@
         where rw <= #{page} * 5
         ]]>
     </select>
-    <select id="selectBoardFileList" resultType="file">
+    <select id="selectFileList" resultType="file">
         select * from
         board_file where bno = #{bno}
     </select>
