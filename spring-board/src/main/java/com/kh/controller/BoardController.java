@@ -1,6 +1,8 @@
 package com.kh.controller;
 
+import com.kh.dto.BoardCommentDTO;
 import com.kh.dto.BoardDTO;
+import com.kh.dto.BoardFileDTO;
 import com.kh.service.BoardService;
 import com.kh.util.JwtTokenProvider;
 import com.kh.vo.PaggingVO;

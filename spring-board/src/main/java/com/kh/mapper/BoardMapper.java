@@ -1,6 +1,8 @@
 package com.kh.mapper;
 
+import com.kh.dto.BoardCommentDTO;
 import com.kh.dto.BoardDTO;
+import com.kh.dto.BoardFileDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -10,4 +12,7 @@ import java.util.Map;
 public interface BoardMapper {
   List<BoardDTO> selectBoardList(Map<String, Object> map);
   int selectBoardTotalCount();
+  BoardDTO selectBoard(int bno);
+  List<BoardCommentDTO> selectCommentList(Map<String, Object> map);
+  List<BoardFileDTO> selectFileList(int bno);
 }
