@@ -21,7 +21,10 @@ public class JwtAuthenticationFilter implements Filter {
   private static final List<String> PUBLIC_PATHS = Arrays.asList(
           "/api/auth/login",
           "/api/auth/signup",
-          "/api/auth/refresh"
+          "/api/auth/refresh",
+          "/api/board/list",
+          "/api/board/detail",
+          "/api/board/comment"
   );
 
   @Override
