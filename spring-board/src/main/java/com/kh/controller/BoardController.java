@@ -4,10 +4,7 @@ import com.kh.dto.BoardDTO;
 import com.kh.service.BoardService;
 import com.kh.util.JwtTokenProvider;
 import com.kh.vo.PaggingVO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +36,23 @@ public class BoardController {
     Map<String, Object> map = new HashMap<>();
     map.put("boardList",list);
     map.put("pagging",pagging);
+
+    return map;
+  }
+
+  @GetMapping("/detail/{bno}")
+  public Map<String, Object> boardDetail(@PathVariable int bno) {
+    Map<String, Object> map = new HashMap<>();
+    //글번호에 해당하는 게시글 조회
+    BoardDTO board = boardService.selectBoard(bno);
+    //글번호에 해당하는 댓글 리스트 생성
+    List<BoardCommentDTO> commentList = boardService.selectCommentList(bno, 1);
+    //글번호에 해당하는 첨부파일 리스트 생성
+    List<BoardFileDTO> fileList = boardService.selectFileList(bno);
+
+    map.put("board", board);
+    map.put("commentList", commentList);
+    map.put("fileList", fileList);
 
     return map;
   }

@@ -27,5 +27,16 @@
         select count(*)
         from board_view
     </select>
-
+    <select id="selectCommentList" resultType="comment">
+        <![CDATA[
+        select * from
+        (select row_number() over(order by cno desc) as rw, bcv.*
+        from board_comment_view bcv where bno = #{bno})
+        where rw <= #{page} * 5
+        ]]>
+    </select>
+    <select id="selectBoardFileList" resultType="file">
+        select * from
+        board_file where bno = #{bno}
+    </select>
 </mapper>
