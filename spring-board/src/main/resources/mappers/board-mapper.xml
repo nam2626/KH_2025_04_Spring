@@ -16,4 +16,16 @@
         <result column="username" property="username"/>
     </resultMap>
 
+    <select id="selectBoardList" resultMap="board">
+        select * from
+        (select
+        row_number() over(order by bv.bno desc) as rw, bv.*
+        from board_view bv)
+        where ceil(rw / #{pageContentEa}) = #{pageNo}
+    </select>
+    <select id="selectBoardTotalCount" resultType="int">
+        select count(*)
+        from board_view
+    </select>
+
 </mapper>
