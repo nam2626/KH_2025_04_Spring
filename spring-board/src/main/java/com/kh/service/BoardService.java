@@ -59,4 +59,17 @@ public class BoardService {
     return mapper.deleteBoardLike(map);
   }
 
+  public int insertBoardHate(int bno, String id) {
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put("bno", bno);
+    map.put("id", id);
+    return mapper.insertBoardHate(map);
+  }
+  public int deleteBoardHate(int bno, String id) {
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put("bno", bno);
+    map.put("id", id);
+    return mapper.deleteBoardHate(map);
+  }
+
 }

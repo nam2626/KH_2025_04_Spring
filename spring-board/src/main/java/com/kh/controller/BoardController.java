@@ -78,6 +78,26 @@ public class BoardController {
     }
 
     return map;
+  } 
+  @GetMapping("/hate/{bno}")
+  public Map<String, Object> boardHate(@PathVariable int bno, @RequestAttribute String authenticatedUserid){
+    Map<String, Object> map = new HashMap<>();
+    System.out.println(bno + " " + authenticatedUserid);
+    try {
+      //좋아요 처리
+      boardService.insertBoardHate(bno,authenticatedUserid);
+      map.put("code", 1);
+      map.put("msg","해당 게시글에 싫어요 하셨습니다.");
+    } catch (Exception e) {
+      //이미 좋아요 했으면 취소처리
+      boardService.deleteBoardHate(bno,authenticatedUserid);
+      map.put("code", 1);
+      map.put("msg","해당 게시글에 싫어요 취소하셨습니다.");
+    }finally {
+      map.put("count",boardService.selectBoardLikeHateCount(bno));
+    }
+
+    return map;
   }
 }
 
