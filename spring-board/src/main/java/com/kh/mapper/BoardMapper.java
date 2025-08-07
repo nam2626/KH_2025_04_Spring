@@ -15,4 +15,7 @@ public interface BoardMapper {
   BoardDTO selectBoard(int bno);
   List<BoardCommentDTO> selectCommentList(Map<String, Object> map);
   List<BoardFileDTO> selectFileList(int bno);
+  int insertBoardLike(Map<String, Object> map);
+  Map<String, Object> selectBoardLikeHateCount(int bno);
+  int deleteBoardLike(Map<String, Object> map);
 }

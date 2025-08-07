@@ -63,9 +63,19 @@ public class BoardController {
   public Map<String, Object> boardLike(@PathVariable int bno, @RequestAttribute String authenticatedUserid){
     Map<String, Object> map = new HashMap<>();
     System.out.println(bno + " " + authenticatedUserid);
-    //좋아요 처리
-
-    //이미 좋아요 했으면 취소처리
+    try {
+      //좋아요 처리
+      boardService.insertBoardLike(bno,authenticatedUserid);
+      map.put("code", 1);
+      map.put("msg","해당 게시글에 좋아요 하셨습니다.");
+    } catch (Exception e) {
+      //이미 좋아요 했으면 취소처리
+      boardService.deleteBoardLike(bno,authenticatedUserid);
+      map.put("code", 1);
+      map.put("msg","해당 게시글에 좋아요 취소하셨습니다.");
+    }finally {
+      map.put("count",boardService.selectBoardLikeHateCount(bno));
+    }
 
     return map;
   }

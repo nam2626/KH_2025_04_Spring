@@ -6,6 +6,7 @@ import com.kh.dto.BoardFileDTO;
 import com.kh.mapper.BoardMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,4 +40,23 @@ public class BoardService {
   public List<BoardFileDTO> selectFileList(int bno) {
     return mapper.selectFileList(bno);
   }
+
+  public int insertBoardLike(int bno, String id) {
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put("bno", bno);
+    map.put("id", id);
+    return mapper.insertBoardLike(map);
+  }
+
+  public Map<String, Object> selectBoardLikeHateCount(int bno) {
+    return mapper.selectBoardLikeHateCount(bno);
+  }
+
+  public int deleteBoardLike(int bno, String id) {
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put("bno", bno);
+    map.put("id", id);
+    return mapper.deleteBoardLike(map);
+  }
+
 }
