@@ -79,6 +79,47 @@ public class BoardController {
 
     return map;
   } 
+  @GetMapping("/comment/hate/{cno}")
+  public Map<String, Object> boardCommentHate(@PathVariable int cno, @RequestAttribute String authenticatedUserid){
+    Map<String, Object> map = new HashMap<>();
+    System.out.println(cno + " " + authenticatedUserid);
+    try {
+      //좋아요 처리
+      boardService.insertBoardCommentHate(cno,authenticatedUserid);
+      map.put("code", 1);
+      map.put("msg","해당 댓글에 싫어요 하셨습니다.");
+    } catch (Exception e) {
+      //이미 좋아요 했으면 취소처리
+      boardService.deleteBoardCommentHate(cno,authenticatedUserid);
+      map.put("code", 1);
+      map.put("msg","해당 댓글에 싫어요 취소하셨습니다.");
+    }finally {
+      map.put("count",boardService.selectBoardCommentLikeHateCount(cno));
+    }
+
+    return map;
+  }
+
+  @GetMapping("/comment/like/{cno}")
+  public Map<String, Object> boardCommentLike(@PathVariable int cno, @RequestAttribute String authenticatedUserid){
+    Map<String, Object> map = new HashMap<>();
+    System.out.println(cno + " " + authenticatedUserid);
+    try {
+      //좋아요 처리
+      boardService.insertBoardCommentLike(cno,authenticatedUserid);
+      map.put("code", 1);
+      map.put("msg","해당 댓글에 좋아요 하셨습니다.");
+    } catch (Exception e) {
+      //이미 좋아요 했으면 취소처리
+      boardService.deleteBoardCommentLike(cno,authenticatedUserid);
+      map.put("code", 1);
+      map.put("msg","해당 댓글에 좋아요 취소하셨습니다.");
+    }finally {
+      map.put("count",boardService.selectBoardCommentLikeHateCount(cno));
+    }
+
+    return map;
+  }
   @GetMapping("/hate/{bno}")
   public Map<String, Object> boardHate(@PathVariable int bno, @RequestAttribute String authenticatedUserid){
     Map<String, Object> map = new HashMap<>();
@@ -99,6 +140,7 @@ public class BoardController {
 
     return map;
   }
+
 }
 
 

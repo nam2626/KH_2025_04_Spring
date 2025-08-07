@@ -24,7 +24,7 @@ public class JwtAuthenticationFilter implements Filter {
           "/api/auth/refresh",
           "/api/board/list",
           "/api/board/detail",
-          "/api/board/comment"
+          "/api/board/comment/list"
   );
 
   @Override

@@ -67,4 +67,26 @@
         where bno = #{bno} and
         id = #{id}
     </delete>
+    <insert id="insertBoardCommentLike">
+        insert into board_comment_like(cno, id)
+        values(#{cno}, #{id})
+    </insert>
+    <delete id="deleteBoardCommentLike">
+        delete from board_comment_like
+        where cno = #{cno} and id = #{id}
+    </delete>
+    <select id="selectBoardCommentLikeHateCount" resultType="map">
+        select
+        (select count(*) from board_comment_like where cno = #{cno}) as clike,
+        (select count(*) from board_comment_hate where cno = #{cno}) as chate
+        from dual
+    </select>
+    <insert id="insertBoardCommentHate">
+        insert into board_comment_hate(cno, id)
+        values(#{cno}, #{id})
+    </insert>
+    <delete id="deleteBoardCommentHate">
+        delete from board_comment_hate
+        where cno = #{cno} and id = #{id}
+    </delete>
 </mapper>
