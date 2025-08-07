@@ -59,6 +59,16 @@ public class BoardController {
     return map;
   }
 
+  @GetMapping("/like/{bno}")
+  public Map<String, Object> boardLike(@PathVariable int bno, @RequestAttribute String authenticatedUserid){
+    Map<String, Object> map = new HashMap<>();
+    System.out.println(bno + " " + authenticatedUserid);
+    //좋아요 처리
+
+    //이미 좋아요 했으면 취소처리
+
+    return map;
+  }
 }
 
 
