@@ -8,6 +8,7 @@ import com.kh.util.JwtTokenProvider;
 import com.kh.vo.PaggingVO;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,6 +142,28 @@ public class BoardController {
     return map;
   }
 
+  @DeleteMapping("/{bno}")
+  public Map<String, Object> boardDelete(@PathVariable int bno, @RequestAttribute String authenticatedUserid){
+    BoardDTO board = boardService.selectBoard(bno);
+    Map<String, Object> map = new HashMap<>();
+    if(board.getId() == Long.parseLong(authenticatedUserid)){
+      //1. 첨부파일 삭제
+      List<BoardFileDTO> fileList = boardService.selectFileList(bno);
+      fileList.forEach(file -> {
+        File f = new File(file.getFpath());
+        f.delete();
+      });
+
+      //2. 게시글 데이터 삭제
+      boardService.deleteBoard(bno,authenticatedUserid);
+      map.put("code",1);
+      map.put("msg","해당 게시글을 삭제 완료하였습니다.");
+    }else{
+      map.put("code",2);
+      map.put("msg","본인이 작성한 게시글만 삭제할 수 있습니다.");
+    }
+    return map;
+  }
 }
 
 

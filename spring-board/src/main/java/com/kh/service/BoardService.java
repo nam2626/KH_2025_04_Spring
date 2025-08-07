@@ -100,4 +100,11 @@ public class BoardService {
     map.put("id", id);
     return mapper.deleteBoardCommentHate(map);
   }
+
+  public int deleteBoard(int bno, String id) {
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put("bno", bno);
+    map.put("id", id);
+    return mapper.deleteBoard(map);
+  }
 }
