@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -201,7 +203,7 @@ public class BoardController {
   }
 
   @PostMapping("/write")
-  public Map<String,Object> boardWrite(@RequestAttribute String authenticatedUserid, @RequestPart("params") String params, @RequestPart(value = "file", required = false)MultipartFile[] files) throws JsonProcessingException {
+  public Map<String,Object> boardWrite(@RequestAttribute String authenticatedUserid, @RequestPart("params") String params, @RequestPart(value = "file", required = false)MultipartFile[] files) throws IOException {
     Map<String, Object> map = new HashMap<>();
     if(authenticatedUserid == null){
       map.put("msg","로그인 하셔야 이용하실수 있습니다.");
@@ -212,6 +214,51 @@ public class BoardController {
     Map<String,String> paramsMap = objectMapper.readValue(params, new TypeReference<Map<String, String>>() {});
     System.out.println(paramsMap);
 
+    BoardDTO board = new BoardDTO();
+    board.setId(Long.parseLong(authenticatedUserid));
+    board.setTitle(paramsMap.get("title"));
+    board.setContent(paramsMap.get("content"));
+
+
+
+    //파일 업로드
+    File root = new File("c:\\fileupload");
+    //해당 경로가 있는 지 없는지 체크해서 없으면 해당 경로를 생성
+    if(!root.exists()) root.mkdirs();
+
+    List<BoardFileDTO> fileList = new ArrayList<>();
+    if(files != null){
+      for(MultipartFile file : files){
+        if(file.isEmpty()){
+          continue;
+        }
+        // 업로드할 파일명
+        String fileName = file.getOriginalFilename();
+        // 파일 저장할 경로 완성
+        String filePath = root + File.separator + fileName;
+        // 실제 파일 저장 부분
+        file.transferTo(new File(filePath));
+        BoardFileDTO fileDTO = new BoardFileDTO();
+        fileDTO.setFpath(filePath);
+        fileList.add(fileDTO);
+      }
+      //게시글 데이터베이스에 추가
+      int bno = boardService.selectBoardNo();
+      board.setBno(bno);
+      fileList.forEach(item -> item.setBno(bno));
+      int count = boardService.insertBoard(board,fileList);
+      if(count != 0){
+        map.put("bno",bno);
+        map.put("code",1);
+        map.put("msg","게시글 쓰기 성공");
+      } else{
+        map.put("code",2);
+        map.put("msg","게시글 쓰기 실패");
+      }
+
+      return map;
+    }
+    
 
 
 

@@ -121,4 +121,14 @@ public class BoardService {
   public int updateBoardComment(BoardCommentDTO comment) {
     return mapper.updateBoardComment(comment);
   }
+
+  public int selectBoardNo() {
+    return mapper.selectBoardNo();
+  }
+
+  public int insertBoard(BoardDTO board, List<BoardFileDTO> fileList) {
+    int count = mapper.insertBoard(board);
+    fileList.forEach(item -> mapper.insertBoardFile(item));
+    return count;
+  }
 }

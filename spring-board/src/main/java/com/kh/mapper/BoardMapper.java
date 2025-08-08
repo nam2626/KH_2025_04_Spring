@@ -29,4 +29,7 @@ public interface BoardMapper {
   BoardCommentDTO selectBoardComment(int cno);
   int deleteBoardComment(Map<String, Object> map);
   int updateBoardComment(BoardCommentDTO comment);
+  int selectBoardNo();
+  int insertBoard(BoardDTO board);
+  void insertBoardFile(BoardFileDTO item);
 }
