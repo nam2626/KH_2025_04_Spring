@@ -1,5 +1,8 @@
 package com.kh.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.dto.BoardCommentDTO;
 import com.kh.dto.BoardDTO;
 import com.kh.dto.BoardFileDTO;
@@ -7,6 +10,7 @@ import com.kh.service.BoardService;
 import com.kh.util.JwtTokenProvider;
 import com.kh.vo.PaggingVO;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.HashMap;
@@ -195,6 +199,25 @@ public class BoardController {
 
     return map;
   }
+
+  @PostMapping("/write")
+  public Map<String,Object> boardWrite(@RequestAttribute String authenticatedUserid, @RequestPart("params") String params, @RequestPart(value = "file", required = false)MultipartFile[] files) throws JsonProcessingException {
+    Map<String, Object> map = new HashMap<>();
+    if(authenticatedUserid == null){
+      map.put("msg","로그인 하셔야 이용하실수 있습니다.");
+      map.put("code",3);
+      return map;
+    }
+    ObjectMapper objectMapper = new ObjectMapper();
+    Map<String,String> paramsMap = objectMapper.readValue(params, new TypeReference<Map<String, String>>() {});
+    System.out.println(paramsMap);
+
+
+
+
+    return map;
+  }
+
 }
 
 
