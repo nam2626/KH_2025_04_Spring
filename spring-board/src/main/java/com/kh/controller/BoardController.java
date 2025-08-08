@@ -164,6 +164,21 @@ public class BoardController {
     }
     return map;
   }
+
+  @DeleteMapping("/comment/{cno}")
+  public Map<String, Object> boardCommentDelete(@PathVariable int cno, @RequestAttribute String authenticatedUserid){
+    BoardCommentDTO comment = boardService.selectBoardComment(cno);
+    Map<String, Object> map = new HashMap<>();
+    if(comment.getId() == Long.parseLong(authenticatedUserid)){
+      boardService.deleteBoardComment(cno,authenticatedUserid);
+      map.put("code",1);
+      map.put("msg","해당 댓글 삭제를 완료하였습니다.");
+    }else{
+      map.put("code",2);
+      map.put("msg","본인이 작성한 댓글만 삭제할 수 있습니다.");
+    }
+    return map;
+  }
 }
 
 
