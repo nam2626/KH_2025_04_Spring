@@ -92,4 +92,11 @@
     <delete id="deleteBoard">
         delete from board where bno = #{bno} and id = #{id}
     </delete>
+    <select id="selectBoardComment" resultType="comment">
+        select * from board_comment_view where cno = #{cno}
+    </select>
+    <delete id="deleteBoardComment">
+        delete from board_comment where cno = #{cno} and id = #{id}
+    </delete>
+
 </mapper>

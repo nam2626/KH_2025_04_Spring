@@ -107,4 +107,13 @@ public class BoardService {
     map.put("id", id);
     return mapper.deleteBoard(map);
   }
+
+  public BoardCommentDTO selectBoardComment(int cno) {
+    return mapper.selectBoardComment(cno);
+  }
+
+  public int deleteBoardComment(int cno, String authenticatedUserid) {
+    Map<String, Object> map = Map.of("cno", cno,"id",authenticatedUserid);
+    return mapper.deleteBoardComment(map);
+  }
 }
