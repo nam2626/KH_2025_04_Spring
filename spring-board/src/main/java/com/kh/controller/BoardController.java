@@ -179,6 +179,22 @@ public class BoardController {
     }
     return map;
   }
+  @PatchMapping("/comment")
+  public Map<String, Object> updateComment(@RequestBody BoardCommentDTO comment, @RequestAttribute String authenticatedUserid){
+    Map<String, Object> map = new HashMap<>();
+
+    BoardCommentDTO dto = boardService.selectBoardComment(comment.getCno());
+    if(dto.getId() == Long.parseLong(authenticatedUserid)){
+      comment.setId(Long.parseLong(authenticatedUserid));
+      boardService.updateBoardComment(comment);
+      map.put("comment",boardService.selectBoardComment(comment.getCno()));
+      map.put("msg","댓글 수정 완료하였습니다.");
+    }else{
+      map.put("msg","댓글 수정 실패하였습니다.");
+    }
+
+    return map;
+  }
 }
 
 

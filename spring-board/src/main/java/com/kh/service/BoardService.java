@@ -116,4 +116,9 @@ public class BoardService {
     Map<String, Object> map = Map.of("cno", cno,"id",authenticatedUserid);
     return mapper.deleteBoardComment(map);
   }
+
+
+  public int updateBoardComment(BoardCommentDTO comment) {
+    return mapper.updateBoardComment(comment);
+  }
 }

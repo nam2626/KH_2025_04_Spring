@@ -98,5 +98,9 @@
     <delete id="deleteBoardComment">
         delete from board_comment where cno = #{cno} and id = #{id}
     </delete>
+    <update id="updateBoardComment">
+        update board_comment set content = #{content}
+        where cno = #{cno} and id = #{id}
+    </update>
 
 </mapper>
