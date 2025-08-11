@@ -24,6 +24,7 @@ public class JwtAuthenticationFilter implements Filter {
           "/api/auth/refresh",
           "/api/board/list",
           "/api/board/detail",
+          "/api/board/download",
           "/api/board/comment/list"
   );
 

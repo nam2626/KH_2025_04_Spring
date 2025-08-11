@@ -9,6 +9,11 @@ import com.kh.service.BoardService;
 import com.kh.util.JwtTokenProvider;
 import com.kh.vo.PaggingVO;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -267,16 +272,28 @@ public class BoardController {
   }
 
   @GetMapping("/download/{fno}")
-  public void fileDownload(@PathVariable int fno, HttpServletResponse response){
+  public ResponseEntity<Resource> fileDownload(@PathVariable int fno, HttpServletResponse response){
     //1. 파일 정보를 DB로 부터 읽어옴
     BoardFileDTO fileDTO = boardService.selectFile(fno);
     File file = new File(fileDTO.getFpath());
     String encodingFileName = URLEncoder.encode(fileDTO.getFileName(), StandardCharsets.UTF_8);
+
+    String contentDisposition = "attachement;filename="+encodingFileName;
+    Resource resource = new FileSystemResource(file);
+
+    return ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM).header(HttpHeaders.CONTENT_DISPOSITION,contentDisposition).body(resource);
+
+    /*
+    //기존 방식
     //2. 스트림 연결해서 클라이언트에게 전송(response 헤더 설정)
     //2-1. 헤더 설정(인코딩 타입, 파일명, 사이즈)
-    response.setHeader("Content_Disposition","attachement;filename="+encodingFileName);
+    response.setHeader("Content-Disposition","attachement;filename="+encodingFileName);
     response.setHeader("Content-Transfer-Encoding","binary");
     response.setContentLength((int)file.length());
+
+
+
+
     //2-2. fis로 읽어와서 bos로 전송
     try(FileInputStream fis = new FileInputStream(file);
         BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream())) {
@@ -291,7 +308,7 @@ public class BoardController {
       e.printStackTrace();
     } catch (IOException e){
       e.printStackTrace();
-    }
+    }*/
   }
 
 }
