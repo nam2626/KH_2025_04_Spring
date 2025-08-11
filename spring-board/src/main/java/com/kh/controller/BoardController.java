@@ -264,9 +264,6 @@ public class BoardController {
 
       return map;
     }
-    
-
-
 
     return map;
   }
@@ -311,6 +308,22 @@ public class BoardController {
     }*/
   }
 
+  @PostMapping("/comment")
+  public Map<String,Object> boardCommentWrite(@RequestBody BoardCommentDTO commentDTO, @RequestAttribute String authenticatedUserid){
+    Map<String, Object> map = new HashMap<>();
+    commentDTO.setId(Long.parseLong(authenticatedUserid));
+
+    try {
+      boardService.insertBoardComment(commentDTO);
+      map.put("code",1);
+      map.put("msg","댓글 추가 완료");
+      map.put("commentList",boardService.selectCommentList(commentDTO.getBno(),1));
+    } catch (Exception e) {
+      map.put("code",2);
+      map.put("msg","댓글 추가 실패");
+    }
+    return map;
+  }
 }
 
 
