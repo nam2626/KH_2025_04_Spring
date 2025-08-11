@@ -12,8 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -274,7 +273,25 @@ public class BoardController {
     File file = new File(fileDTO.getFpath());
     String encodingFileName = URLEncoder.encode(fileDTO.getFileName(), StandardCharsets.UTF_8);
     //2. 스트림 연결해서 클라이언트에게 전송(response 헤더 설정)
-
+    //2-1. 헤더 설정(인코딩 타입, 파일명, 사이즈)
+    response.setHeader("Content_Disposition","attachement;filename="+encodingFileName);
+    response.setHeader("Content-Transfer-Encoding","binary");
+    response.setContentLength((int)file.length());
+    //2-2. fis로 읽어와서 bos로 전송
+    try(FileInputStream fis = new FileInputStream(file);
+        BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream())) {
+        byte[] buffer = new byte[1024*1024];
+        while(true){
+          int size = fis.read(buffer);
+          if(size == -1) break;
+          bos.write(buffer,0,size);
+          bos.flush();
+        }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e){
+      e.printStackTrace();
+    }
   }
 
 }
