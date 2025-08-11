@@ -33,7 +33,7 @@ public class BoardService {
   }
 
   public List<BoardCommentDTO> selectCommentList(int bno, int i) {
-    Map<String,Object> map = Map.of("bno",bno, "page",i);
+    Map<String,Object> map = Map.of("bno",bno, "start",i);
     return mapper.selectCommentList(map);
   }
 

@@ -34,9 +34,9 @@
     <select id="selectCommentList" resultType="comment">
         <![CDATA[
         select * from
-        (select row_number() over(order by cno desc) as rw, bcv.*
+        (select row_number() over(order by cno asc) as rw, bcv.*
         from board_comment_view bcv where bno = #{bno})
-        where rw <= #{page} * 5
+        where rw between #{start} and (#{start} + 4)
         ]]>
     </select>
     <select id="selectFileList" resultType="file">

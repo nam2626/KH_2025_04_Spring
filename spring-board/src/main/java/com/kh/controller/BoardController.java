@@ -324,6 +324,14 @@ public class BoardController {
     }
     return map;
   }
+
+  @GetMapping("/comment/list/{bno}")
+  public List<BoardCommentDTO> boardComment(@PathVariable int bno, @RequestParam int start){
+    System.out.println(bno + " " + start);
+    List<BoardCommentDTO> commentList = boardService.selectCommentList(bno,start);
+    return commentList;
+  }
+
 }
 
 
