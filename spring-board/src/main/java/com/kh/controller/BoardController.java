@@ -1,6 +1,5 @@
 package com.kh.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.dto.BoardCommentDTO;
@@ -9,11 +8,14 @@ import com.kh.dto.BoardFileDTO;
 import com.kh.service.BoardService;
 import com.kh.util.JwtTokenProvider;
 import com.kh.vo.PaggingVO;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -263,6 +265,16 @@ public class BoardController {
 
 
     return map;
+  }
+
+  @GetMapping("/download/{fno}")
+  public void fileDownload(@PathVariable int fno, HttpServletResponse response){
+    //1. 파일 정보를 DB로 부터 읽어옴
+    BoardFileDTO fileDTO = boardService.selectFile(fno);
+    File file = new File(fileDTO.getFpath());
+    String encodingFileName = URLEncoder.encode(fileDTO.getFileName(), StandardCharsets.UTF_8);
+    //2. 스트림 연결해서 클라이언트에게 전송(response 헤더 설정)
+
   }
 
 }

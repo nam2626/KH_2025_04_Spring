@@ -113,6 +113,9 @@
         insert into board_file(fno,bno,fpath)
         values(seq_board_file_fno.nextval, #{bno},#{fpath})
     </insert>
+    <select id="selectFile" resultType="file">
+        select * from board_file where fno = #{fno}
+    </select>
 
 
 </mapper>

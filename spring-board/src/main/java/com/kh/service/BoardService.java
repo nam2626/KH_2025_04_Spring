@@ -131,4 +131,9 @@ public class BoardService {
     fileList.forEach(item -> mapper.insertBoardFile(item));
     return count;
   }
+
+  public BoardFileDTO selectFile(int fno) {
+    return mapper.selectFile(fno);
+  }
+
 }
