@@ -33,4 +33,5 @@ public interface BoardMapper {
   int insertBoard(BoardDTO board);
   void insertBoardFile(BoardFileDTO item);
   BoardFileDTO selectFile(int fno);
+  int insertBoardComment(BoardCommentDTO commentDTO);
 }

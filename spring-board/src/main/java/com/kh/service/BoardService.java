@@ -136,4 +136,7 @@ public class BoardService {
     return mapper.selectFile(fno);
   }
 
+  public int insertBoardComment(BoardCommentDTO commentDTO) {
+    return mapper.insertBoardComment(commentDTO);
+  }
 }

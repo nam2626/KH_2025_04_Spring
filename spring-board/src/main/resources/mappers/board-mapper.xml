@@ -116,6 +116,9 @@
     <select id="selectFile" resultType="file">
         select * from board_file where fno = #{fno}
     </select>
-
+    <insert id="insertBoardComment">
+        insert into board_comment(cno, bno, content, id)
+        values(seq_board_comment_cno.nextval, #{bno}, #{content},#{id})
+    </insert>
 
 </mapper>
