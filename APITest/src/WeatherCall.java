@@ -7,7 +7,7 @@ import java.net.URL;
 public class WeatherCall {
   public static void main(String[] args) throws IOException {
     String apiURL = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?";
-    apiURL += "serviceKey=서비스키";
+    apiURL += "serviceKey=hpOVfNem4MVro1QdBZTMTq%2FMZs%2B8yylSvxNQlqPiEQec%2Bo99WRRbIvrVqLltto5W0TmluoxR7uQHpHFNZ146qg%3D%3D";
     apiURL += "&numOfRows=50";
     apiURL += "&pageNo=1";
     apiURL += "&dataType=JSON";
